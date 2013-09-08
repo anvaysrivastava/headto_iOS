@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "HTPlacePickViewController.h"
+#import "HTCityPickViewController.h"
 
-@interface HTViewController : UIViewController <PlacePickRootViewContollerDelegage>
-
+@interface HTViewController : UIViewController <PlacePickRootViewContollerDelegage, CityPickRootViewController>
 @property (weak, nonatomic) IBOutlet UITextField *placePickTextField;
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+
 
 - (IBAction)openPlacePickView:(id)sender;
+- (IBAction)openCityPickView:(id)sender;
 
 @end

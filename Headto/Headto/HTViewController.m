@@ -8,6 +8,7 @@
 
 #import "HTViewController.h"
 #import "HTPlacePickViewController.h"
+#import "HTCityPickViewController.h"
 
 @interface HTViewController ()
 
@@ -18,25 +19,35 @@
 @implementation HTViewController
 
 @synthesize placePickTextField=_placePickTextField;
+@synthesize cityLabel=_cityLabel;
 
 -(void) setPlace:(NSString *)place
 {
     [ [self placePickTextField] setText:place];
 }
 
+-(void) setCity:(NSString *)city
+{
+    [ [self cityLabel] setText:city];
+}
+
 - (IBAction)openPlacePickView:(id)sender
 {
-    NSLog(@"Place pick event has been triggered");
     
-    //[self performSegueWithIdentifier:@"placePickSegue" sender:self];
     [ self.placePickTextField resignFirstResponder ];
     HTPlacePickViewController *placePickViewController = (HTPlacePickViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"HTPlacePickViewController"];
     placePickViewController.delegate = self;
     [ [self navigationController] setNavigationBarHidden:NO];
-    [[self navigationController] pushViewController:placePickViewController animated:NO];
-    NSLog(@"open place pick completed");
-    //[self presentViewController:placePickViewController animated:YES completion:nil];
+    [ [self navigationController] pushViewController:placePickViewController animated:NO];
     
+}
+
+- (IBAction)openCityPickView:(id)sender
+{
+    HTCityPickViewController *cityPickViewController = (HTCityPickViewController *)[ self.storyboard instantiateViewControllerWithIdentifier:@"HTCityPickViewController"];
+    cityPickViewController.delegate = self;
+    [ [self navigationController] setNavigationBarHidden:NO];
+    [ [self navigationController] pushViewController:cityPickViewController  animated:NO];
 }
 
 - (void)viewDidLoad

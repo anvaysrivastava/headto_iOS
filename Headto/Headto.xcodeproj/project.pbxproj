@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		910A565517DD0509009A1481 /* HTCityPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 910A565417DD0509009A1481 /* HTCityPickViewController.m */; };
 		913FB6C717DC4C46007DA56C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6C617DC4C46007DA56C /* Foundation.framework */; };
 		913FB6C917DC4C46007DA56C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6C817DC4C46007DA56C /* CoreGraphics.framework */; };
 		913FB6CB17DC4C46007DA56C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6CA17DC4C46007DA56C /* UIKit.framework */; };
@@ -23,7 +24,6 @@
 		913FB6F317DC4C46007DA56C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913FB6F117DC4C46007DA56C /* InfoPlist.strings */; };
 		913FB6F517DC4C46007DA56C /* HeadtoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB6F417DC4C46007DA56C /* HeadtoTests.m */; };
 		913FB70417DC553C007DA56C /* HTPlacePickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB70217DC553C007DA56C /* HTPlacePickViewController.m */; };
-		913FB70517DC553C007DA56C /* HTPlacePickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913FB70317DC553C007DA56C /* HTPlacePickViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		910A565317DD0509009A1481 /* HTCityPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityPickViewController.h; sourceTree = "<group>"; };
+		910A565417DD0509009A1481 /* HTCityPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityPickViewController.m; sourceTree = "<group>"; };
 		913FB6C317DC4C46007DA56C /* Headto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		913FB6C617DC4C46007DA56C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		913FB6C817DC4C46007DA56C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,7 +61,6 @@
 		913FB6F417DC4C46007DA56C /* HeadtoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadtoTests.m; sourceTree = "<group>"; };
 		913FB70117DC553C007DA56C /* HTPlacePickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPlacePickViewController.h; sourceTree = "<group>"; };
 		913FB70217DC553C007DA56C /* HTPlacePickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPlacePickViewController.m; sourceTree = "<group>"; };
-		913FB70317DC553C007DA56C /* HTPlacePickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPlacePickViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,10 +125,11 @@
 				913FB6D817DC4C46007DA56C /* Main_iPhone.storyboard */,
 				913FB6DB17DC4C46007DA56C /* Main_iPad.storyboard */,
 				913FB6DE17DC4C46007DA56C /* HTViewController.h */,
+				913FB6DF17DC4C46007DA56C /* HTViewController.m */,
 				913FB70117DC553C007DA56C /* HTPlacePickViewController.h */,
 				913FB70217DC553C007DA56C /* HTPlacePickViewController.m */,
-				913FB70317DC553C007DA56C /* HTPlacePickViewController.xib */,
-				913FB6DF17DC4C46007DA56C /* HTViewController.m */,
+				910A565317DD0509009A1481 /* HTCityPickViewController.h */,
+				910A565417DD0509009A1481 /* HTCityPickViewController.m */,
 				913FB6E117DC4C46007DA56C /* Images.xcassets */,
 				913FB6CD17DC4C46007DA56C /* Supporting Files */,
 			);
@@ -243,7 +245,6 @@
 				913FB6DD17DC4C46007DA56C /* Main_iPad.storyboard in Resources */,
 				913FB6E217DC4C46007DA56C /* Images.xcassets in Resources */,
 				913FB6DA17DC4C46007DA56C /* Main_iPhone.storyboard in Resources */,
-				913FB70517DC553C007DA56C /* HTPlacePickViewController.xib in Resources */,
 				913FB6D117DC4C46007DA56C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				913FB6E017DC4C46007DA56C /* HTViewController.m in Sources */,
+				910A565517DD0509009A1481 /* HTCityPickViewController.m in Sources */,
 				913FB70417DC553C007DA56C /* HTPlacePickViewController.m in Sources */,
 				913FB6D717DC4C46007DA56C /* HTAppDelegate.m in Sources */,
 				913FB6D317DC4C46007DA56C /* main.m in Sources */,
@@ -479,6 +481,7 @@
 				913FB6FA17DC4C46007DA56C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		913FB6FB17DC4C46007DA56C /* Build configuration list for PBXNativeTarget "HeadtoTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +490,7 @@
 				913FB6FD17DC4C46007DA56C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
