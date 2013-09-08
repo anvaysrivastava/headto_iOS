@@ -14,7 +14,8 @@
 
 @end
 
-@interface HTCityPickViewController : UIViewController
+@interface HTCityPickViewController : UIViewController < UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (assign) id <CityPickRootViewController> delegate;
+@property (nonatomic,weak) IBOutlet UITableView *citySearchTableView;
 @end
