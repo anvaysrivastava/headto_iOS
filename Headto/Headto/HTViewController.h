@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTPlacePickViewController.h"
 
-@interface HTViewController : UIViewController
+@interface HTViewController : UIViewController <PlacePickRootViewContollerDelegage>
+
+@property (weak, nonatomic) IBOutlet UITextField *placePickTextField;
+
+- (IBAction)openPlacePickView:(id)sender;
 
 @end
