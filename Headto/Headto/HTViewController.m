@@ -50,11 +50,21 @@
     [ [self navigationController] pushViewController:cityPickViewController  animated:NO];
 }
 
+-(void)testJSONConversion
+{
+    NSString *jsonString = @"\"a\":\"b\"";
+    NSData *data = [ [NSData alloc] initWithBytes:(__bridge const void *)([jsonString dataUsingEncoding:NSUTF8StringEncoding]) length:jsonString.length];
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSLog(@"JSONObject is %@",jsonObject);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self testJSONConversion];
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil ];
     [[self navigationController] setNavigationBarHidden:YES animated:NO];
+    
     NSLog(@"view did load");
 	// Do any additional setup after loading the view, typically from a nib.
 }
