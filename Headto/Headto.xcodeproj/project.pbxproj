@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		910A565517DD0509009A1481 /* HTCityPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 910A565417DD0509009A1481 /* HTCityPickViewController.m */; };
-		913FB6C717DC4C46007DA56C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6C617DC4C46007DA56C /* Foundation.framework */; };
-		913FB6C917DC4C46007DA56C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6C817DC4C46007DA56C /* CoreGraphics.framework */; };
-		913FB6CB17DC4C46007DA56C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6CA17DC4C46007DA56C /* UIKit.framework */; };
 		913FB6D117DC4C46007DA56C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913FB6CF17DC4C46007DA56C /* InfoPlist.strings */; };
 		913FB6D317DC4C46007DA56C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB6D217DC4C46007DA56C /* main.m */; };
 		913FB6D717DC4C46007DA56C /* HTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB6D617DC4C46007DA56C /* HTAppDelegate.m */; };
@@ -24,6 +21,8 @@
 		913FB6F317DC4C46007DA56C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913FB6F117DC4C46007DA56C /* InfoPlist.strings */; };
 		913FB6F517DC4C46007DA56C /* HeadtoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB6F417DC4C46007DA56C /* HeadtoTests.m */; };
 		913FB70417DC553C007DA56C /* HTPlacePickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB70217DC553C007DA56C /* HTPlacePickViewController.m */; };
+		91C7805117E683AD00775A92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6C617DC4C46007DA56C /* Foundation.framework */; };
+		91EFC96117E6835300C5A893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FB6CA17DC4C46007DA56C /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				913FB6C917DC4C46007DA56C /* CoreGraphics.framework in Frameworks */,
-				913FB6CB17DC4C46007DA56C /* UIKit.framework in Frameworks */,
-				913FB6C717DC4C46007DA56C /* Foundation.framework in Frameworks */,
+				91C7805117E683AD00775A92 /* Foundation.framework in Frameworks */,
+				91EFC96117E6835300C5A893 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
