@@ -52,10 +52,14 @@
 
 -(void)testJSONConversion
 {
-    NSString *jsonString = @"\"a\":\"b\"";
-    NSData *data = [ [NSData alloc] initWithBytes:(__bridge const void *)([jsonString dataUsingEncoding:NSUTF8StringEncoding]) length:jsonString.length];
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSLog(@"JSONObject is %@",jsonObject);
+    NSString *jsonString = @"{\"a\":\"b\"}";
+    
+    NSError *e = nil;
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData: [jsonString dataUsingEncoding:NSUTF8StringEncoding]
+                                                               options: NSJSONReadingMutableContainers
+                                                                 error: &e];
+    //[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSLog(@"NSJson is %@",[jsonObject valueForKey:@"a"]);
 }
 
 - (void)viewDidLoad

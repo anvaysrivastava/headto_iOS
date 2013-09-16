@@ -68,10 +68,9 @@ bool isSearchTriggered;
                                                            timeoutInterval:10];
         [request setHTTPMethod: @"GET"];
         NSError *requestError;
+        NSError *requrestJSONConversionError;
         NSURLResponse *urlResponse = nil;
         NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-        NSLog(@"Response has been recieved for citypick %@ ",response);
-        NSError *jsonParsingError = nil;
         if(response == NULL){
             isSearchTriggered = false;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
@@ -81,34 +80,28 @@ bool isSearchTriggered;
                                                   otherButtonTitles:nil];
             [alert show];
         } else {
-            id object = [NSJSONSerialization JSONObjectWithData:response options:0 error:&jsonParsingError];
-        
-            if (jsonParsingError) {
-                NSLog(@"JSON ERROR: %@", [jsonParsingError localizedDescription]);
-            } else {
-                NSLog(@"OBJECT: %@", [object class]);
-            }
+            NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:response
+                                                                         options: NSJSONReadingMutableContainers
+                                                                           error: &requrestJSONConversionError];
+            //NSLog(@"Response has been recieved for citypick %@ ",responseJSON);
+            cities = [responseJSON valueForKey:@"geonames"];
         }
         isSearchTriggered = false;
     }
-    //NSLog(@"response of city lister is %@",response1);
-    /*NSString *searchString = [[ NSString stringWithFormat:@"http://ws.geonames.org/searchJSON?name_contains%@&fclName_contains=city",query] stringByAddingPercentEscapesUsingEncoding:
-     NSASCIIStringEncoding];
-     NSLog(@"Search url is %@",searchUrl);
-     NSURLRequest *request = [NSURLRequest requestWithURL:searchUrl];
-     connection=[ [NSURLConnection alloc] initWithRequest:request delegate:self];
-     */
     
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     NSLog(@"Search text changed to : %@", searchText);
-    [cities addObject:searchText];
+    //[cities addObject:searchText];
     [self.citySearchTableView reloadData];
-    if(searchText.length>3){
+    if([searchText isEqual:@""]){
+        cities = [[NSMutableArray alloc] init];
+    } else {
         [self triggerSearch:searchText];
     }
+    
     
 }
 
@@ -119,6 +112,7 @@ bool isSearchTriggered;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"Table length right now is %lu",(unsigned long)[cities count]);
     return [cities count];
 }
 
@@ -131,8 +125,13 @@ bool isSearchTriggered;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
-    cell.textLabel.text = [cities objectAtIndex:indexPath.row];
+    if(indexPath.row >= [cities count]){
+        return cell;
+    }
+    NSString *name = [[cities objectAtIndex:indexPath.row] valueForKey:@"name"];
+    NSString *country = [[cities objectAtIndex:indexPath.row] valueForKey:@"countryName"];
+    NSArray *displayTextArray = [[NSArray alloc] initWithObjects:name,country,nil];
+    cell.textLabel.text = [displayTextArray componentsJoinedByString:@","];
     return cell;
 }
 
