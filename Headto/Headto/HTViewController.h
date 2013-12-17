@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "HTPlacePickViewController.h"
 #import "HTCityPickViewController.h"
-
-@interface HTViewController : UIViewController <PlacePickRootViewContollerDelegage, CityPickRootViewController>
-@property (weak, nonatomic) IBOutlet UITextField *placePickTextField;
-@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+#import "HTRegionElement.h"
+#import "HTRegionPickViewController.h"
 
 
-- (IBAction)openPlacePickView:(id)sender;
-- (IBAction)openCityPickView:(id)sender;
+@interface HTViewController : UIViewController <HTViewControllerRegionPropertyProtocol>
+@property (weak, nonatomic) IBOutlet UILabel *regionLabel;
 
 @end

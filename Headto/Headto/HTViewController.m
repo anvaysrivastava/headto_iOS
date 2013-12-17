@@ -9,67 +9,56 @@
 #import "HTViewController.h"
 #import "HTPlacePickViewController.h"
 #import "HTCityPickViewController.h"
+#import "HTRegionElement.h"
+#import "HTRegionPickViewController.h"
 
 @interface HTViewController ()
 
-@property (weak,nonatomic) UIStoryboard *storyBoard;
+@property HTRegionElement *destinationRegion;
 
 @end
 
 @implementation HTViewController
 
-@synthesize placePickTextField=_placePickTextField;
-@synthesize cityLabel=_cityLabel;
-
--(void) setPlace:(NSString *)place
+-(void) setRegion:(HTRegionElement *)destinationRegion
 {
-    [ [self placePickTextField] setText:place];
+    NSLog(@"setRegion method has been called in HTViewController");
+    self.destinationRegion = destinationRegion;
+    self.regionLabel.text = destinationRegion.regionName;
+    NSLog(@"destinationRegion has been changed to %@ in HTViewController",self.destinationRegion.regionName);
 }
 
--(void) setCity:(NSString *)city
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [ [self cityLabel] setText:city];
+    UIViewController *destinationViewController = [segue destinationViewController];
+    NSLog(@"DestinationViewController class is %@",destinationViewController.class);
+    if([destinationViewController isKindOfClass:[HTRegionPickViewController class]])
+    {
+        HTRegionPickViewController *regionPickViewController = (HTRegionPickViewController *) destinationViewController;
+        regionPickViewController.delegate = self;
+    }
 }
 
-- (IBAction)openPlacePickView:(id)sender
+
+- (IBAction)unwindToMainView:(UIStoryboardSegue *)segue
 {
-    
-    [ self.placePickTextField resignFirstResponder ];
-    HTPlacePickViewController *placePickViewController = (HTPlacePickViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"HTPlacePickViewController"];
-    placePickViewController.delegate = self;
-    [ [self navigationController] setNavigationBarHidden:NO];
-    [ [self navigationController] pushViewController:placePickViewController animated:NO];
-    
+    NSObject *inputViewController = [segue sourceViewController];
+    if([inputViewController isKindOfClass:[HTRegionPickViewController class]] )
+    {
+        HTRegionPickViewController *newRegionPickViewController = (HTRegionPickViewController *)inputViewController;
+        if(newRegionPickViewController.selectedRegion !=NULL ){
+            self.destinationRegion = newRegionPickViewController.selectedRegion;
+            self.regionLabel.text = self.destinationRegion.regionName;
+        }
+    }
 }
 
-- (IBAction)openCityPickView:(id)sender
-{
-    HTCityPickViewController *cityPickViewController = (HTCityPickViewController *)[ self.storyboard instantiateViewControllerWithIdentifier:@"HTCityPickViewController"];
-    cityPickViewController.delegate = self;
-    [ [self navigationController] setNavigationBarHidden:NO];
-    [ [self navigationController] pushViewController:cityPickViewController  animated:NO];
-}
-
--(void)testJSONConversion
-{
-    NSString *jsonString = @"{\"a\":\"b\"}";
-    
-    NSError *e = nil;
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData: [jsonString dataUsingEncoding:NSUTF8StringEncoding]
-                                                               options: NSJSONReadingMutableContainers
-                                                                 error: &e];
-    //[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSLog(@"NSJson is %@",[jsonObject valueForKey:@"a"]);
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self testJSONConversion];
-    self.storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil ];
-    [[self navigationController] setNavigationBarHidden:YES animated:NO];
-    
-    NSLog(@"view did load");
+    self.destinationRegion = [[HTRegionElement alloc] init];
+    self.destinationRegion.regionName = @"Bangalore";
 	// Do any additional setup after loading the view, typically from a nib.
 }
 

@@ -13,93 +13,67 @@
 @end
 
 @implementation HTCityPickViewController
+
 NSMutableArray *cities;
 NSURL *searchUrl;
-NSMutableData *responseData;
-NSURLConnection *connection;
-NSString *searchResponse;
-bool isSearchTriggered;
+int requestCount=0;
+int modificationCount=0;
 @synthesize delegate;
 @synthesize citySearchTableView=_citySearchTableView;
+@synthesize citySerchBar=_citySerchBar;
 
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    responseData = [[NSMutableData alloc] init];
-    NSLog(@"Recived response %@",responseData);
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [responseData appendData:data];
-    
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    searchResponse = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSError *error = [ [NSError alloc] init];
-    NSObject *o =[NSJSONSerialization JSONObjectWithData:responseData
-                                                 options:NSJSONReadingMutableContainers
-                                                   error:&error];
-    NSLog(@"Parsed json is %@",o);
-    NSLog(@"Error message is %@",error);
-    NSLog(@"The search json was %@",searchResponse);
-    
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-}
-
-- (void) triggerSearch:(NSString *)query
+- (void) triggerSearch:(NSString *)query withModificationCount:(int)modificationCount
 {
-    if( !isSearchTriggered){
-        isSearchTriggered= true;
-        NSString *searchString =  [[ NSString stringWithFormat:@"http://ws.geonames.org/searchJSON?name_startsWith=%@",query] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        searchUrl = [ [NSURL alloc] initWithString:searchString];
-        NSLog(@"Search url is %@",searchUrl);
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:searchUrl
-                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                           timeoutInterval:10];
-        [request setHTTPMethod: @"GET"];
-        NSError *requestError;
-        NSError *requrestJSONConversionError;
-        NSURLResponse *urlResponse = nil;
-        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-        if(response == NULL){
-            isSearchTriggered = false;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                            message:@"You must be connected to the internet to use this app."
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        } else {
-            NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:response
-                                                                         options: NSJSONReadingMutableContainers
-                                                                           error: &requrestJSONConversionError];
-            //NSLog(@"Response has been recieved for citypick %@ ",responseJSON);
+    NSString *searchString =  [[ NSString stringWithFormat:@"http://ws.geonames.org/searchJSON?name_startsWith=%@",query] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    searchUrl = [ [NSURL alloc] initWithString:searchString];
+    NSLog(@"Search url is %@",searchUrl);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:searchUrl
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod: @"GET"];
+    NSError *requestError;
+    NSError *requrestJSONConversionError;
+    NSURLResponse *urlResponse = nil;
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    if(response == NULL){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+                                                        message:@"You must be connected to the internet to use this app."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:response
+                                                                     options: NSJSONReadingMutableContainers
+                                                                       error: &requrestJSONConversionError];
+        //NSLog(@"Response has been recieved for citypick %@ ",responseJSON);
+        if(requestCount<=modificationCount){
             cities = [responseJSON valueForKey:@"geonames"];
+            requestCount = modificationCount;
+            [self.citySearchTableView reloadData];
+        } else {
+            NSLog(@"Search request cancelled for %@, Reason: a newer query came with before it",query);
         }
-        isSearchTriggered = false;
+        
     }
-    
 }
+
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     NSLog(@"Search text changed to : %@", searchText);
+    modificationCount++;
     //[cities addObject:searchText];
     [self.citySearchTableView reloadData];
     if([searchText isEqual:@""]){
         cities = [[NSMutableArray alloc] init];
     } else {
-        [self triggerSearch:searchText];
+        dispatch_async(dispatch_queue_create("com.anvaysri.cityPick", NULL), ^{
+            [self triggerSearch:searchText withModificationCount:modificationCount];
+            NSLog(@"Search completed for : %@", searchText);
+        });
+        //[self triggerSearch:searchText];
     }
     
     
@@ -147,6 +121,8 @@ bool isSearchTriggered;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [ self.citySerchBar setDelegate:self];
+    [self.citySerchBar becomeFirstResponder];
     UIBarButtonItem *backButton =[ [UIBarButtonItem alloc] initWithTitle:@"HeadTo" style:UIBarButtonItemStylePlain target:self action:@selector(goBack) ];
     self.navigationItem.leftBarButtonItem = backButton;
     cities = [ [NSMutableArray alloc] init];

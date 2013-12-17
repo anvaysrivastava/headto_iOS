@@ -18,4 +18,5 @@
 
 @property (assign) id <CityPickRootViewController> delegate;
 @property (nonatomic,weak) IBOutlet UITableView *citySearchTableView;
+@property (nonatomic,weak) IBOutlet UISearchBar *citySerchBar;
 @end

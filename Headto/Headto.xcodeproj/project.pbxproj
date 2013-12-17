@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		910A565517DD0509009A1481 /* HTCityPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 910A565417DD0509009A1481 /* HTCityPickViewController.m */; };
+		91386558185B3ADB005D2DA3 /* HTRegionPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91386557185B3ADB005D2DA3 /* HTRegionPickViewController.m */; };
+		9138655B185B480B005D2DA3 /* HTRegionElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 9138655A185B480B005D2DA3 /* HTRegionElement.m */; };
 		913FB6D117DC4C46007DA56C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913FB6CF17DC4C46007DA56C /* InfoPlist.strings */; };
 		913FB6D317DC4C46007DA56C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB6D217DC4C46007DA56C /* main.m */; };
 		913FB6D717DC4C46007DA56C /* HTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 913FB6D617DC4C46007DA56C /* HTAppDelegate.m */; };
@@ -38,6 +40,10 @@
 /* Begin PBXFileReference section */
 		910A565317DD0509009A1481 /* HTCityPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityPickViewController.h; sourceTree = "<group>"; };
 		910A565417DD0509009A1481 /* HTCityPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityPickViewController.m; sourceTree = "<group>"; };
+		91386556185B3ADB005D2DA3 /* HTRegionPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegionPickViewController.h; sourceTree = "<group>"; };
+		91386557185B3ADB005D2DA3 /* HTRegionPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRegionPickViewController.m; sourceTree = "<group>"; };
+		91386559185B480B005D2DA3 /* HTRegionElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegionElement.h; sourceTree = "<group>"; };
+		9138655A185B480B005D2DA3 /* HTRegionElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRegionElement.m; sourceTree = "<group>"; };
 		913FB6C317DC4C46007DA56C /* Headto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		913FB6C617DC4C46007DA56C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		913FB6C817DC4C46007DA56C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -130,6 +136,10 @@
 				910A565417DD0509009A1481 /* HTCityPickViewController.m */,
 				913FB6E117DC4C46007DA56C /* Images.xcassets */,
 				913FB6CD17DC4C46007DA56C /* Supporting Files */,
+				91386556185B3ADB005D2DA3 /* HTRegionPickViewController.h */,
+				91386557185B3ADB005D2DA3 /* HTRegionPickViewController.m */,
+				91386559185B480B005D2DA3 /* HTRegionElement.h */,
+				9138655A185B480B005D2DA3 /* HTRegionElement.m */,
 			);
 			path = Headto;
 			sourceTree = "<group>";
@@ -267,6 +277,8 @@
 				913FB70417DC553C007DA56C /* HTPlacePickViewController.m in Sources */,
 				913FB6D717DC4C46007DA56C /* HTAppDelegate.m in Sources */,
 				913FB6D317DC4C46007DA56C /* main.m in Sources */,
+				9138655B185B480B005D2DA3 /* HTRegionElement.m in Sources */,
+				91386558185B3ADB005D2DA3 /* HTRegionPickViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +416,7 @@
 				GCC_PREFIX_HEADER = "Headto/Headto-Prefix.pch";
 				INFOPLIST_FILE = "Headto/Headto-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -418,6 +431,7 @@
 				GCC_PREFIX_HEADER = "Headto/Headto-Prefix.pch";
 				INFOPLIST_FILE = "Headto/Headto-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
